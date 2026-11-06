@@ -5,6 +5,50 @@
 <link rel="icon" type="image/png" sizes="192x192" href="./757-rb211-vibe-icon-r2-192.png">
 <link rel="manifest" href="./manifest.webmanifest?icons=r2">
 <meta name="apple-mobile-web-app-title" content="757 RB211">
+
+<style id="aircraft-wallpaper">
+body { isolation:isolate; min-height:100vh; background:#09121b; }
+body::before {
+  content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
+  background:linear-gradient(180deg,rgba(5,11,19,.45),rgba(5,11,19,.27) 35%,#09121b 95%),
+    url("./757-rb211-vibe-icon-r2-512.png") center top / clamp(410px, 100vw, 920px) auto no-repeat;
+}
+
+.panel {
+  background:transparent;
+  border:0;
+  border-top:1px solid #526275;
+  border-radius:0;
+  padding-inline:0;
+}
+main, .wrap { text-shadow:0 1px 3px #09121b; }
+
+
+:is(div, label):has(> :is(input:not([type=checkbox]):not([type=radio]), select)):not(:has(> :is(input:not([type=checkbox]):not([type=radio]), select) ~ :is(input:not([type=checkbox]):not([type=radio]), select))) {
+  display:block;
+  min-width:0;
+  padding:9px 12px;
+  border:1px solid #42566a;
+  border-radius:12px;
+  background:rgba(13,21,29,.93);
+}
+:is(input:not([type=checkbox]):not([type=radio]), select) {
+  box-sizing:border-box;
+  min-height:44px;
+  width:100%;
+  color:#f4f8fc;
+  font-size:max(16px, 1rem);
+  border:0;
+  border-bottom:1px solid #8297aa;
+  border-radius:0;
+  background-color:#111c28;
+}
+:is(input:not([type=checkbox]):not([type=radio]), select):focus-visible {
+  outline:2px solid #9edaff;
+  outline-offset:2px;
+}
+
+</style>
 </head><body><main class="wrap"><header><div><div class="tag">B757 · ROLLS-ROYCE RB211</div><h1>Three-Shot Plot</h1><small>Test 7A / 7D / 7H • calculation worksheet</small></div><span class="pill">OFFLINE APP</span></header><section class="panel"><h2>1 · Flange & trial weight</h2><div class="grid"><div><label for="flange">Flange</label><select id="flange"><option value="25">25 holes · pre-SB</option><option value="24">24 holes · post-SB</option></select></div><div><label for="holeA">First trial location A</label><select id="holeA"></select></div><div><label for="weight">Actual trial weight</label><input id="weight" type="number" min="0.001" step="any" value="35"></div><div><label for="unit">Weight units</label><select id="unit"><option value="g">grams</option><option value="oz">ounces</option></select></div></div><div class="hint" id="positions"></div><p class="lead">Use the actual numbered A hole as the counting reference. View: FRONT OF ENGINE LOOKING AFT. Hole numbers increase counterclockwise on screen: from A at 12 o’clock toward the LEFT, then B lower left and C lower right. Confirm A/B/C trial positions with the applicable manual. The app draws this orientation; verify the actual marked A/B/C positions against the applicable procedure. Enter the <b>measured</b> trial-weight assembly, not the nominal weight.</p></section><section class="panel"><h2>2 · Vibration readings</h2><p class="lead">Enter vibration units for the initial run (RI) and each run with the same trial weight moved to A, B, and C. At least one complete speed is required. Leave unused speed rows blank.</p><div id="speeds"></div><div class="actions"><button id="calculate">CALCULATE PLOT</button><button type="button" class="secondary" id="clear">Clear readings</button></div><div id="result" aria-live="polite"></div></section><section class="panel"><h2>3 · Three-shot plot & flange</h2><div id="flangeDiagram"></div><div id="diagram"><p class="muted">Enter readings and select Calculate Plot to display the trial-circle model.</p></div><details><summary>Calculation method and quality checks</summary><p class="lead">The model places the A/B/C trial-circle centers on the initial-vibration circle and numerically fits their intersection, following the geometry described in Test 7H. Its correction-weight magnitude is trial weight × RI / RT. A residual is reported when the three measured circles fail to intersect. The app computes a circular vector average across complete speed rows; it is an engineering worksheet, not Rolls-Royce spreadsheet output or an AMM-approved balance instruction.</p></details></section><section class="panel"><h2>Manual references</h2><p class="lead">Uploaded B757 AMM 71-00-00-5-3, Revision 141.0: pp. 145–154 (Test 7A); pp. 214–217 (Test 7H graphical calculation for 24/25-hole flanges); Figures 515, 517, 518, 519 and 520. The 24-hole installation/test procedure is Test 7D, not the 25-hole Test 7A pages.</p><div class="notice"><b>Reference calculation only.</b> Do not select or install actual aircraft balance weights or positions from this app. Confirm effectivity, marked holes, retained weights, measured weight, run conditions, graphical fit, and the current controlled AMM. A numerical three-shot solution is not an authorized hardware installation plan.</div></section></main><script>
 'use strict';
 const $=id=>document.getElementById(id), RAD=Math.PI/180, TAU=Math.PI*2;
