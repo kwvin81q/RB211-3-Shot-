@@ -81,7 +81,11 @@ function wrap(h,n){return ((Math.round(h)-1+n*100)%n)+1}
 function updatePositions(){let n=+$('flange').value,a=+$('holeA').value;let b=wrap(a+Math.round(n/3),n),c=wrap(a+Math.round(2*n/3),n);$('positions').textContent=`Trial positions (front looking aft): A ${a} · B ${b} · C ${c} (verify numbering and viewing direction with the actual flange).`}
 $('flange').addEventListener('change',()=>{setup();$('result').innerHTML='';$('diagram').innerHTML='';$('flangeDiagram').innerHTML=''});$('holeA').addEventListener('change',updatePositions);
 $('speeds').innerHTML=SPEEDS.map((s,i)=>`<div class="speed"><div class="speed-head"><strong>Speed ${i+1}</strong><span class="muted">nominal ${s}% N1</span></div><div class="grid four">${['RI','RA','RB','RC'].map(k=>`<div><label for="${k}${i}">${k}</label><input id="${k}${i}" inputmode="decimal" type="number" min="0" step="any" placeholder="—" aria-label="Speed ${i+1} ${k}"></div>`).join('')}</div></div>`).join('');
-function estimate(vals, wt, n, holeA){let [ri,ra,rb,rc]=vals;let centers=[0,1,2].map(i=>({x:ri*Math.cos(i*TAU/3),y:ri*Math.sin(i*TAU/3)}));let rads=[ra,rb,rc]; let best={loss:Infinity,x:0,y:0}; let bound=Math.max(...vals,0.5)*2.6; for(let x=-bound;x<=bound;x+=bound/15)for(let y=-bound;y<=bound;y+=bound/15){let loss=centers.reduce((s,c,i)=>s+(Math.hypot(x-c.x,y-c.y)-rads[i])**2,0);if(loss<best.loss)best={loss,x,y}}let x=best.x,y=best.y,lam=.001;
+function estimate(vals, wt, n, holeA){let [ri,ra,rb,rc]=vals;const trialOffsets=[0,Math.round(n/3),Math.round(2*n/3)];
+const centers=trialOffsets.map(offset=>{
+  const angle=offset*TAU/n;
+  return {x:ri*Math.cos(angle),y:ri*Math.sin(angle)};
+});let rads=[ra,rb,rc]; let best={loss:Infinity,x:0,y:0}; let bound=Math.max(...vals,0.5)*2.6; for(let x=-bound;x<=bound;x+=bound/15)for(let y=-bound;y<=bound;y+=bound/15){let loss=centers.reduce((s,c,i)=>s+(Math.hypot(x-c.x,y-c.y)-rads[i])**2,0);if(loss<best.loss)best={loss,x,y}}let x=best.x,y=best.y,lam=.001;
 for(let it=0;it<140;it++){let aa=lam,bb=0,cc=lam,dd=0,ee=0;for(let i=0;i<3;i++){let dx=x-centers[i].x,dy=y-centers[i].y,d=Math.max(1e-10,Math.hypot(dx,dy)),err=d-rads[i],jx=dx/d,jy=dy/d;aa+=jx*jx;bb+=jx*jy;cc+=jy*jy;dd+=jx*err;ee+=jy*err}let det=aa*cc-bb*bb;if(det<1e-15)break;let sx=(cc*dd-bb*ee)/det,sy=(aa*ee-bb*dd)/det;if(!Number.isFinite(sx+sy))break;let nx=x-sx,ny=y-sy,old=centers.reduce((s,c,i)=>s+(Math.hypot(x-c.x,y-c.y)-rads[i])**2,0),neu=centers.reduce((s,c,i)=>s+(Math.hypot(nx-c.x,ny-c.y)-rads[i])**2,0);if(neu<=old){x=nx;y=ny;lam=Math.max(1e-8,lam/2)}else lam=Math.min(1e6,lam*5);if(Math.hypot(sx,sy)<1e-9)break}
 let rt=Math.hypot(x,y),residual=Math.sqrt(centers.reduce((s,c,i)=>s+(Math.hypot(x-c.x,y-c.y)-rads[i])**2,0)/3),degrees=((Math.atan2(y,x)/RAD)%360+360)%360,continuous=holeA+degrees/(360/n),h=wrap(continuous,n);return {ri,rt,residual,weight:rt>1e-7?wt*ri/rt:NaN,angle:degrees,hole:h,continuous,centers,rads,x,y};}
 function fmt(n,d=2){return Number.isFinite(n)?n.toFixed(d):'—'}
@@ -100,9 +104,15 @@ function draw(model,n,holeA){let r=model.ri,extent=Math.max(r,model.rt,...model.
 $('calculate').addEventListener('click',()=>{let n=+$('flange').value,a=+$('holeA').value,weight=+$('weight').value,units=$('unit').value;if(!(weight>0&&Number.isFinite(weight))){$('result').innerHTML='<p class="bad">Enter an actual positive trial weight.</p>';return}let results=[],errors=[];for(let i=0;i<4;i++){let raw=['RI','RA','RB','RC'].map(k=>$(k+i).value.trim());if(raw.every(s=>s===''))continue;if(raw.some(s=>s==='')){errors.push(`Speed ${i+1}: incomplete RI/RA/RB/RC readings`);continue}let values=raw.map(Number);if(values.some(v=>!Number.isFinite(v)||v<0)||values[0]===0){errors.push(`Speed ${i+1}: readings must be nonnegative with RI above zero`);continue}results.push({speed:i+1,...estimate(values,weight,n,a)})}
 if(!results.length){$('result').innerHTML=`<p class="bad">${errors.length?errors.join('; '):'Enter a complete set of RI, RA, RB, and RC readings for at least one speed.'}</p>`;$('diagram').innerHTML='';$('flangeDiagram').innerHTML='';return}
 let usable=results.filter(r=>Number.isFinite(r.weight)&&r.weight>0),vx=0,vy=0;for(let r of usable){let ang=r.angle*RAD;vx+=r.weight*Math.cos(ang);vy+=r.weight*Math.sin(ang)}vx/=Math.max(1,usable.length);vy/=Math.max(1,usable.length);let mag=Math.hypot(vx,vy),ang=((Math.atan2(vy,vx)/RAD)%360+360)%360,h=wrap(a+ang/(360/n),n),maxres=Math.max(...results.map(r=>r.residual)),relerr=Math.max(...results.map(r=>r.residual/Math.max(.01,r.ri)));let status=relerr>.15?'Poor circle fit: do not rely on the plotted result':relerr>.05?'Circle-fit disagreement: review trial readings':'Numerical fit available; independent validation required';
-if(relerr>.15 || usable.length!==results.length || !Number.isFinite(mag) || mag<=0){
+// Test 7H compares the correction with maximum initial-run vibration.
+const maxInitial=Math.max(...results.map(r=>r.ri));
+const gramsPerUnit=n===25?35:22;
+const ouncesPerUnit=n===25?1.25:0.75;
+const checkWeight=1.25*maxInitial*(units==='oz'?ouncesPerUnit:gramsPerUnit);
+const exceedsCheck=mag>checkWeight;
+if(exceedsCheck || relerr>.15 || usable.length!==results.length || !Number.isFinite(mag) || mag<=0){
 const rows=results.map(r=>`<tr><td>${r.speed}</td><td>${r.ri}</td><td>${r.rads[0]}</td><td>${r.rads[1]}</td><td>${r.rads[2]}</td><td>${fmt(r.residual,3)}</td></tr>`).join('');
-const reason=relerr>.15?'Poor circle fit':'No usable correction vector';
+const reason=relerr>.15?'Poor circle fit':exceedsCheck?'Above the Test 7H weight cross-check. Recheck the graphical solution':'No usable correction vector';
 $('result').innerHTML=`<div class="result"><div class="big">Correction withheld</div><p class="bad">${reason}. Review the measured readings below.</p><table><thead><tr><th>Speed</th><th>RI</th><th>RA</th><th>RB</th><th>RC</th><th>Fit residual</th></tr></thead><tbody>${rows}</tbody></table>${errors.length?`<p class="bad">${errors.join('; ')}</p>`:''}</div>`;
 $('diagram').innerHTML='<p class="muted">Correction plot withheld.</p>';
 $('flangeDiagram').innerHTML=drawFlange(n,a,null);
