@@ -1,78 +1,6 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#006eaa"><title>RB211 · Three-Shot Plot</title><style>
 :root{font-family:system-ui,-apple-system,Segoe UI,Arial,sans-serif;color:#e8f3fa;background:#08141d}*{box-sizing:border-box}body{margin:0}.wrap{max-width:850px;margin:auto;padding:18px 16px 65px}header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0 18px}h1{font-size:25px;line-height:1.2;margin:0}small,.muted{color:#aac1d0}.tag{font-size:11px;font-weight:800;letter-spacing:.09em;color:#80d0ff}.pill{border:1px solid #2d5b72;background:#0c2839;padding:7px 10px;border-radius:99px;font-size:12px}.panel{background:#112633;border:1px solid #31536a;border-radius:18px;padding:18px;margin:0 0 14px}.panel h2{font-size:17px;margin:0 0 12px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.grid.four{grid-template-columns:repeat(4,minmax(0,1fr))}label{font-weight:650;font-size:13px;display:block;color:#cfe3ec;margin:0 0 6px}input,select{border:1px solid #53778c;background:#071822;color:#fff;width:100%;min-height:48px;padding:10px 11px;border-radius:10px;font-size:17px}input:focus,select:focus{outline:2px solid #20b7f4}.lead{color:#b1cad8;line-height:1.55;font-size:14px}.row{display:flex;justify-content:space-between;align-items:center;gap:12px}.speed{border:1px solid #385972;padding:12px;border-radius:13px;margin:10px 0}.speed-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.speed strong{font-size:15px}.speed input{min-width:0}.hint{font-size:12px;color:#a7c2d2;margin-top:8px}.actions{display:flex;gap:10px;flex-wrap:wrap}button{background:#00a8e8;color:#001824;border:0;border-radius:12px;padding:15px 18px;font-size:17px;font-weight:800;cursor:pointer;flex:1}button.secondary{background:#193b4d;color:#d6edf6;border:1px solid #456d83}button:focus{outline:2px solid #fff}.result{background:#052d39;border:1px solid #09b6dd;border-radius:15px;padding:18px;margin-top:14px}.big{font-size:39px;font-weight:820;letter-spacing:-1px;color:#61e9fb}.status{font-size:12px;font-weight:700;letter-spacing:.04em;color:#ffd49a;text-transform:uppercase}table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:10px 7px;border-bottom:1px solid #386073;text-align:left}th{color:#add1e4}.notice{border-left:3px solid #efa857;padding:10px 12px;background:#392d1b;color:#f0d6b5;font-size:13px;line-height:1.5;border-radius:4px}svg{max-width:100%;height:auto;display:block}details{margin-top:12px}summary{cursor:pointer;font-weight:700}.hidden{display:none}.bad{color:#ffc595}.good{color:#8ff3d8}@media(max-width:530px){.grid.four{grid-template-columns:repeat(2,minmax(0,1fr))}.wrap{padding:12px 12px 55px}.panel{padding:14px}.big{font-size:32px}}
-</style>
-<link rel="apple-touch-icon" sizes="180x180" href="./757-rb211-vibe-icon-r2-180.png">
-<link rel="icon" type="image/png" sizes="192x192" href="./757-rb211-vibe-icon-r2-192.png">
-<link rel="manifest" href="./manifest.webmanifest?icons=r2">
-<meta name="apple-mobile-web-app-title" content="757 RB211">
-
-<style id="aircraft-wallpaper">
-body { isolation:isolate; min-height:100vh; background:#09121b; }
-body::before {
-  content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
-  background:linear-gradient(180deg,rgba(5,11,19,.45),rgba(5,11,19,.27) 35%,#09121b 95%),
-    url("./aircraft-wallpaper.webp") center 48% / cover no-repeat;
-}
-
-.panel {
-  background:transparent;
-  border:0;
-  border-top:1px solid #526275;
-  border-radius:0;
-  padding-inline:0;
-}
-main, .wrap { text-shadow:0 1px 3px #09121b; }
-
-
-:is(div, label):has(> :is(input:not([type=checkbox]):not([type=radio]), select)):not(:has(> :is(input:not([type=checkbox]):not([type=radio]), select) ~ :is(input:not([type=checkbox]):not([type=radio]), select))) {
-  display:block;
-  min-width:0;
-  padding:9px 12px;
-  border:1px solid #42566a;
-  border-radius:12px;
-  background:rgba(13,21,29,.93);
-}
-:is(input:not([type=checkbox]):not([type=radio]), select) {
-  box-sizing:border-box;
-  min-height:44px;
-  width:100%;
-  color:#f4f8fc;
-  font-size:max(16px, 1rem);
-  border:0;
-  border-bottom:1px solid #8297aa;
-  border-radius:0;
-  background-color:#111c28;
-}
-:is(input:not([type=checkbox]):not([type=radio]), select):focus-visible {
-  outline:2px solid #9edaff;
-  outline-offset:2px;
-}
-
-</style>
-<style id="readable-vibe-text">
-.panel {
-  background: #101924;
-  color: #f4f7fb;
-  padding: clamp(14px, 3vw, 24px);
-  border: 1px solid #526579;
-  border-radius: 16px;
-}
-main, .wrap { line-height: 1.55; }
-:is(main, .wrap) :is(p, .hint, .help, .muted, .lead, .notice, .amt-note, .fine, .tiny, summary, small, label) {
-  font-size: max(1rem, 16px);
-  line-height: 1.55;
-}
-:is(main, .wrap) :is(.hint, .help, .muted, .lead, .fine, .tiny) {
-  color: #dae4ee;
-}
-:is(header, .top, details, footer, p, .hint, .help, .fine, .tiny) {
-  text-shadow: 0 1px 3px #060a10;
-}
-body::before {
-  background-image: linear-gradient(rgba(5,11,19,.65), rgba(5,11,19,.48) 38%, #09121b 95%), url("./aircraft-wallpaper.webp");
-}
-</style>
-</head><body><main class="wrap"><header><div><div class="tag">B757 · ROLLS-ROYCE RB211</div><h1>Three-Shot Plot</h1><small>Test 7A / 7D / 7H • calculation worksheet</small></div><span class="pill">OFFLINE APP</span></header><section class="panel"><h2>1 · Flange & trial weight</h2><div class="grid"><div><label for="flange">Flange</label><select id="flange"><option value="25">25 holes · pre-SB</option><option value="24">24 holes · post-SB</option></select></div><div><label for="holeA">First trial location A</label><select id="holeA"></select></div><div><label for="weight">Actual trial weight</label><input id="weight" type="number" min="0.001" step="any" value="35"></div><div><label for="unit">Weight units</label><select id="unit"><option value="g">grams</option><option value="oz">ounces</option></select></div></div><div class="hint" id="positions"></div><p class="lead">Use the actual numbered A hole as the counting reference. View: FRONT OF ENGINE LOOKING AFT. Hole numbers increase counterclockwise on screen: from A at 12 o’clock toward the LEFT, then B lower left and C lower right. Confirm A/B/C trial positions with the applicable manual. The app draws this orientation; verify the actual marked A/B/C positions against the applicable procedure. Enter the <b>measured</b> trial-weight assembly, not the nominal weight.</p></section><section class="panel"><h2>2 · Vibration readings</h2><p class="lead">Enter vibration units for the initial run (RI) and each run with the same trial weight moved to A, B, and C. At least one complete speed is required. Leave unused speed rows blank.</p><div id="speeds"></div><div class="actions"><button id="calculate">CALCULATE PLOT</button><button type="button" class="secondary" id="clear">Clear readings</button></div><div id="result" aria-live="polite"></div></section><section class="panel"><h2>3 · Three-shot plot & flange</h2><div id="flangeDiagram"></div><div id="diagram"><p class="muted">Enter readings and select Calculate Plot to display the trial-circle model.</p></div><details><summary>Calculation method and quality checks</summary><p class="lead">The model places the A/B/C trial-circle centers on the initial-vibration circle and numerically fits their intersection, following the geometry described in Test 7H. Its correction-weight magnitude is trial weight × RI / RT. A residual is reported when the three measured circles fail to intersect. The app computes a circular vector average across complete speed rows; it is an engineering worksheet, not Rolls-Royce spreadsheet output or an AMM-approved balance instruction.</p></details></section><section class="panel"><h2>Manual references</h2><p class="lead">Uploaded B757 AMM 71-00-00-5-3, Revision 141.0: pp. 145–154 (Test 7A); pp. 214–217 (Test 7H graphical calculation for 24/25-hole flanges); Figures 515, 517, 518, 519 and 520. The 24-hole installation/test procedure is Test 7D, not the 25-hole Test 7A pages.</p><p class="lead">Use the current controlled AMM for balance weight installation and verification.</p></section></main><script>
+</style></head><body><main class="wrap"><header><div><div class="tag">B757 · ROLLS-ROYCE RB211</div><h1>Three-Shot Fit Check</h1><small>Test 7A / 7D / 7H • calculation worksheet</small></div><span class="pill">OFFLINE APP</span></header><section class="panel"><h2>1 · Flange & trial weight</h2><div class="grid"><div><label for="flange">Flange</label><select id="flange"><option value="25">25 holes · pre-SB</option><option value="24">24 holes · post-SB</option></select></div><div><label for="holeA">First trial location A</label><select id="holeA"></select></div><div><label for="weight">Actual trial weight</label><input id="weight" type="number" min="0.001" step="any" value="35"></div><div><label for="unit">Weight units</label><select id="unit"><option value="g">grams</option><option value="oz">ounces</option></select></div></div><div class="hint" id="positions"></div><p class="lead">Use the actual numbered A hole as the counting reference. View: FRONT OF ENGINE LOOKING AFT. Hole numbers increase counterclockwise on screen: from A at 12 o’clock toward the LEFT, then B lower left and C lower right. Confirm A/B/C trial positions with the applicable manual. The app draws this orientation; verify the actual marked A/B/C positions against the applicable procedure. Enter the <b>measured</b> trial-weight assembly, not the nominal weight.</p></section><section class="panel"><h2>2 · Vibration readings</h2><p class="lead">Enter vibration units for the initial run (RI) and each run with the same trial weight moved to A, B, and C. At least one complete speed is required. Leave unused speed rows blank.</p><div id="speeds"></div><div class="actions"><button id="calculate">CALCULATE PLOT</button><button type="button" class="secondary" id="clear">Clear readings</button></div><div id="result" aria-live="polite"></div></section><section class="panel"><h2>3 · Three-shot plot & flange</h2><div id="flangeDiagram"></div><div id="diagram"><p class="muted">Enter readings and select Calculate Plot to display fit diagnostics.</p></div><details><summary>Calculation method and quality checks</summary><p class="lead">The model places the A/B/C trial-circle centers on the initial-vibration circle and numerically fits their intersection, following the geometry described in Test 7H. The output is a fit diagnostic only; it does not calculate an installation weight or hole. A residual is reported when the three measured circles fail to intersect. The app reports measured-versus-fitted discrepancies for each speed row; it is an engineering worksheet, not Rolls-Royce spreadsheet output or an AMM-approved balance instruction.</p></details></section><section class="panel"><h2>Manual references</h2><p class="lead">Uploaded B757 AMM 71-00-00-5-3, Revision 141.0: pp. 145–154 (Test 7A); pp. 214–217 (Test 7H graphical calculation for 24/25-hole flanges); Figures 515, 517, 518, 519 and 520. The 24-hole installation/test procedure is Test 7D, not the 25-hole Test 7A pages.</p><div class="notice"><b>Reference calculation only.</b> Do not select or install actual aircraft balance weights or positions from this app. Confirm effectivity, marked holes, retained weights, measured weight, run conditions, graphical fit, and the current controlled AMM. A numerical three-shot solution is not an authorized hardware installation plan.</div></section></main><script>
 'use strict';
 const $=id=>document.getElementById(id), RAD=Math.PI/180, TAU=Math.PI*2;
 const SPEEDS=[92,87,82,75];
@@ -81,11 +9,7 @@ function wrap(h,n){return ((Math.round(h)-1+n*100)%n)+1}
 function updatePositions(){let n=+$('flange').value,a=+$('holeA').value;let b=wrap(a+Math.round(n/3),n),c=wrap(a+Math.round(2*n/3),n);$('positions').textContent=`Trial positions (front looking aft): A ${a} · B ${b} · C ${c} (verify numbering and viewing direction with the actual flange).`}
 $('flange').addEventListener('change',()=>{setup();$('result').innerHTML='';$('diagram').innerHTML='';$('flangeDiagram').innerHTML=''});$('holeA').addEventListener('change',updatePositions);
 $('speeds').innerHTML=SPEEDS.map((s,i)=>`<div class="speed"><div class="speed-head"><strong>Speed ${i+1}</strong><span class="muted">nominal ${s}% N1</span></div><div class="grid four">${['RI','RA','RB','RC'].map(k=>`<div><label for="${k}${i}">${k}</label><input id="${k}${i}" inputmode="decimal" type="number" min="0" step="any" placeholder="—" aria-label="Speed ${i+1} ${k}"></div>`).join('')}</div></div>`).join('');
-function estimate(vals, wt, n, holeA){let [ri,ra,rb,rc]=vals;const trialOffsets=[0,Math.round(n/3),Math.round(2*n/3)];
-const centers=trialOffsets.map(offset=>{
-  const angle=offset*TAU/n;
-  return {x:ri*Math.cos(angle),y:ri*Math.sin(angle)};
-});let rads=[ra,rb,rc]; let best={loss:Infinity,x:0,y:0}; let bound=Math.max(...vals,0.5)*2.6; for(let x=-bound;x<=bound;x+=bound/15)for(let y=-bound;y<=bound;y+=bound/15){let loss=centers.reduce((s,c,i)=>s+(Math.hypot(x-c.x,y-c.y)-rads[i])**2,0);if(loss<best.loss)best={loss,x,y}}let x=best.x,y=best.y,lam=.001;
+function estimate(vals, wt, n, holeA){let [ri,ra,rb,rc]=vals;let centers=[0,1,2].map(i=>({x:ri*Math.cos(i*TAU/3),y:ri*Math.sin(i*TAU/3)}));let rads=[ra,rb,rc]; let best={loss:Infinity,x:0,y:0}; let bound=Math.max(...vals,0.5)*2.6; for(let x=-bound;x<=bound;x+=bound/15)for(let y=-bound;y<=bound;y+=bound/15){let loss=centers.reduce((s,c,i)=>s+(Math.hypot(x-c.x,y-c.y)-rads[i])**2,0);if(loss<best.loss)best={loss,x,y}}let x=best.x,y=best.y,lam=.001;
 for(let it=0;it<140;it++){let aa=lam,bb=0,cc=lam,dd=0,ee=0;for(let i=0;i<3;i++){let dx=x-centers[i].x,dy=y-centers[i].y,d=Math.max(1e-10,Math.hypot(dx,dy)),err=d-rads[i],jx=dx/d,jy=dy/d;aa+=jx*jx;bb+=jx*jy;cc+=jy*jy;dd+=jx*err;ee+=jy*err}let det=aa*cc-bb*bb;if(det<1e-15)break;let sx=(cc*dd-bb*ee)/det,sy=(aa*ee-bb*dd)/det;if(!Number.isFinite(sx+sy))break;let nx=x-sx,ny=y-sy,old=centers.reduce((s,c,i)=>s+(Math.hypot(x-c.x,y-c.y)-rads[i])**2,0),neu=centers.reduce((s,c,i)=>s+(Math.hypot(nx-c.x,ny-c.y)-rads[i])**2,0);if(neu<=old){x=nx;y=ny;lam=Math.max(1e-8,lam/2)}else lam=Math.min(1e6,lam*5);if(Math.hypot(sx,sy)<1e-9)break}
 let rt=Math.hypot(x,y),residual=Math.sqrt(centers.reduce((s,c,i)=>s+(Math.hypot(x-c.x,y-c.y)-rads[i])**2,0)/3),degrees=((Math.atan2(y,x)/RAD)%360+360)%360,continuous=holeA+degrees/(360/n),h=wrap(continuous,n);return {ri,rt,residual,weight:rt>1e-7?wt*ri/rt:NaN,angle:degrees,hole:h,continuous,centers,rads,x,y};}
 function fmt(n,d=2){return Number.isFinite(n)?n.toFixed(d):'—'}
@@ -104,20 +28,12 @@ function draw(model,n,holeA){let r=model.ri,extent=Math.max(r,model.rt,...model.
 $('calculate').addEventListener('click',()=>{let n=+$('flange').value,a=+$('holeA').value,weight=+$('weight').value,units=$('unit').value;if(!(weight>0&&Number.isFinite(weight))){$('result').innerHTML='<p class="bad">Enter an actual positive trial weight.</p>';return}let results=[],errors=[];for(let i=0;i<4;i++){let raw=['RI','RA','RB','RC'].map(k=>$(k+i).value.trim());if(raw.every(s=>s===''))continue;if(raw.some(s=>s==='')){errors.push(`Speed ${i+1}: incomplete RI/RA/RB/RC readings`);continue}let values=raw.map(Number);if(values.some(v=>!Number.isFinite(v)||v<0)||values[0]===0){errors.push(`Speed ${i+1}: readings must be nonnegative with RI above zero`);continue}results.push({speed:i+1,...estimate(values,weight,n,a)})}
 if(!results.length){$('result').innerHTML=`<p class="bad">${errors.length?errors.join('; '):'Enter a complete set of RI, RA, RB, and RC readings for at least one speed.'}</p>`;$('diagram').innerHTML='';$('flangeDiagram').innerHTML='';return}
 let usable=results.filter(r=>Number.isFinite(r.weight)&&r.weight>0),vx=0,vy=0;for(let r of usable){let ang=r.angle*RAD;vx+=r.weight*Math.cos(ang);vy+=r.weight*Math.sin(ang)}vx/=Math.max(1,usable.length);vy/=Math.max(1,usable.length);let mag=Math.hypot(vx,vy),ang=((Math.atan2(vy,vx)/RAD)%360+360)%360,h=wrap(a+ang/(360/n),n),maxres=Math.max(...results.map(r=>r.residual)),relerr=Math.max(...results.map(r=>r.residual/Math.max(.01,r.ri)));let status=relerr>.15?'Poor circle fit: do not rely on the plotted result':relerr>.05?'Circle-fit disagreement: review trial readings':'Numerical fit available; independent validation required';
-// Test 7H compares the correction with maximum initial-run vibration.
-const maxInitial=Math.max(...results.map(r=>r.ri));
-const gramsPerUnit=n===25?35:22;
-const ouncesPerUnit=n===25?1.25:0.75;
-const checkWeight=1.25*maxInitial*(units==='oz'?ouncesPerUnit:gramsPerUnit);
-const exceedsCheck=mag>checkWeight;
-if(exceedsCheck || relerr>.15 || usable.length!==results.length || !Number.isFinite(mag) || mag<=0){
-const rows=results.map(r=>`<tr><td>${r.speed}</td><td>${r.ri}</td><td>${r.rads[0]}</td><td>${r.rads[1]}</td><td>${r.rads[2]}</td><td>${fmt(r.residual,3)}</td></tr>`).join('');
-const reason=relerr>.15?'Poor circle fit':exceedsCheck?'Above the Test 7H weight cross-check. Recheck the graphical solution':'No usable correction vector';
-$('result').innerHTML=`<div class="result"><div class="big">Correction withheld</div><p class="bad">${reason}. Review the measured readings below.</p><table><thead><tr><th>Speed</th><th>RI</th><th>RA</th><th>RB</th><th>RC</th><th>Fit residual</th></tr></thead><tbody>${rows}</tbody></table>${errors.length?`<p class="bad">${errors.join('; ')}</p>`:''}</div>`;
-$('diagram').innerHTML='<p class="muted">Correction plot withheld.</p>';
+let goodFit=relerr<=.05;
+let table=results.map(r=>`<tr><td>${r.speed}</td><td>${fmt(r.ri,2)}</td><td>${fmt(r.residual,3)}</td><td>${fmt(r.residual/Math.max(.01,r.ri)*100,1)}%</td></tr>`).join('');
+let diagnostics=results.map(r=>{let labels=['A','B','C'];return `<section style="padding:10px;margin:10px 0;border:1px solid #48687c;border-radius:10px"><b>Speed ${r.speed}: measured vs fitted trial circles</b><table><thead><tr><th>Shot</th><th>Measured</th><th>Model</th><th>Difference</th></tr></thead><tbody>${labels.map((l,i)=>{let c=r.centers[i],predicted=Math.hypot(r.x-c.x,r.y-c.y);return `<tr><td>${l}</td><td>${fmt(r.rads[i],3)}</td><td>${fmt(predicted,3)}</td><td>${fmt(predicted-r.rads[i],3)}</td></tr>`}).join('')}</tbody></table></section>`}).join('');
+$('result').innerHTML=`<div class="result"><div class="status">DIAGNOSTIC CHECK · NOT AN INSTALLATION SOLUTION</div><div class="hint">${results.length} complete speed set(s), nominal flange ${n}-hole</div><div class="${goodFit?'good':'bad'}">${goodFit?'Numerical agreement within the worksheet’s screening threshold; not AMM validation.':'Circle measurements disagree with the worksheet’s geometric model. Correction weight and hole withheld.'}</div><p class="lead">Screening only: residual is the root-mean-square difference between each measured trial circle and the fitted circle model. The 5% RI threshold is an app diagnostic, <b>not an AMM acceptance limit</b>. A low residual alone cannot establish a valid balance solution.</p><table><thead><tr><th>Speed</th><th>RI</th><th>Fit residual</th><th>Residual / RI</th></tr></thead><tbody>${table}</tbody></table>${diagnostics}${errors.length?`<p class="bad">${errors.join('; ')}</p>`:''}<p class="hint">Review run-to-run comparability, vibration units, actual trial-weight locations, marked flange numbering, and applicable controlled AMM graphical construction. No weight or installation position is authorized by this diagnostic.</p></div>`;
+$('diagram').innerHTML=draw(results[0],n,a);
 $('flangeDiagram').innerHTML=drawFlange(n,a,null);
-$('result').scrollIntoView({behavior:'smooth',block:'start'});
-return;
-}
-let table=results.map(r=>`<tr><td>${r.speed}</td><td>${fmt(r.weight,1)} ${units}</td><td>${r.hole}</td><td>${fmt(r.residual,3)}</td></tr>`).join('');$('result').innerHTML=`<div class="result"><div class="status">MATHEMATICAL REFERENCE · NOT AN INSTALLATION SOLUTION</div><div class="hint">${usable.length} complete speed set(s), nominal flange ${n}-hole</div><div class="big">${fmt(mag,1)} ${units} · Hole ${h}</div><p class="lead">Vector-averaged magnitude and nearest nominal hole in front-looking-aft counterclockwise numbering from A, using the measured circle fit. The result is <b>not</b> an approved correction-weight placement.</p><div class="${relerr>.05?'bad':'good'}">${status}</div><table><thead><tr><th>Speed</th><th>Plot weight</th><th>Hole</th><th>Fit residual</th></tr></thead><tbody>${table}</tbody></table>${errors.length?`<p class="bad">${errors.join('; ')}</p>`:''}<p class="hint">Max circle-fit residual: ${fmt(maxres,3)} vibration units. Figure 517 pairing/actual hardware assignment, existing installed weights, and controlled effectivity are not solved by this worksheet.</p></div>`;$('diagram').innerHTML=draw(results[0],n,a);$('flangeDiagram').innerHTML=drawFlange(n,a,h);$('result').scrollIntoView({behavior:'smooth',block:'start'})});$('clear').addEventListener('click',()=>{for(let i=0;i<4;i++)for(let k of ['RI','RA','RB','RC'])$(k+i).value='';$('result').innerHTML='';$('diagram').innerHTML='<p class="muted">Enter readings and select Calculate Plot.</p>';$('flangeDiagram').innerHTML=drawFlange(+$('flange').value,+$('holeA').value,null)});setup();$('flangeDiagram').innerHTML=drawFlange(+$('flange').value,+$('holeA').value,null);
+$('result').scrollIntoView({behavior:'smooth',block:'start'})});
+$('clear').addEventListener('click',()=>{for(let i=0;i<4;i++)for(let k of ['RI','RA','RB','RC'])$(k+i).value='';$('result').innerHTML='';$('diagram').innerHTML='<p class="muted">Enter readings and select Calculate Plot.</p>';$('flangeDiagram').innerHTML=drawFlange(+$('flange').value,+$('holeA').value,null)});setup();$('flangeDiagram').innerHTML=drawFlange(+$('flange').value,+$('holeA').value,null);
 </script></body></html>

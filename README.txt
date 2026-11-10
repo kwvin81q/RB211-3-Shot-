@@ -1,0 +1,1 @@
+B757 RB211 three-shot fit diagnostic built from an earlier saved app source (2026-11-02), NOT the exact current deployed version. The app displays per-shot residuals and withholds installation recommendations. Do not use it to set balance hardware; verify with controlled AMM and approved tooling.
